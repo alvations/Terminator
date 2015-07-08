@@ -1,6 +1,17 @@
 Terminator
 ==========
 
+Term Extraction using language model probabilities.
+
+
+Usage
+====
+
+```
+git clone https://github.com/alvations/Terminator.git
+cd Terminator
+python3 extract_terms.py file.txt
+```
 
 
 
