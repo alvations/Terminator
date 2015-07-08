@@ -24,6 +24,7 @@ KenLM
 wget -O - http://kheafield.com/code/kenlm.tar.gz |tar xz 
 cd kenlm
 ./bjam -j4
+pip install https://github.com/kpu/kenlm/archive/master.zip
 ```
 
 **Train a Model**
