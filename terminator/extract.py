@@ -32,7 +32,7 @@ def fame(textfile, model, measure=lmpmi, noun_filter=senna_noun_phrase_filter):
             if line_count != 0 and line_count % 500 == 0:
                 sys.stderr.write(' '.join(['took', str(time.time() - start), 'secs\n']))
                 start = time.time()
-            noun_phrases = noun_filter(line)
+            noun_phrases = senna_noun_phrase_filter(line)
             for ng in simple_filter(noun_phrases):
                 if ng not in extracted_terms_measure:
                     score = measure(ng, model)
@@ -64,7 +64,7 @@ def extract_line_by_line(textfile, model, method=lame,noun_filter=senna_noun_phr
                 yield line.strip(), extracted_terms
                 
 def extract_for_whole_file(textfile, model, method=fame):
-    extracted_terms_counts, extracted_terms_measure  = method(textfile, model, measure=lmpmi, noun_filter=noun_final_filter)
+    extracted_terms_counts, extracted_terms_measure  = method(textfile, model, measure=lmpmi, noun_filter=senna_noun_phrase_filter)
     for ng in sorted(extracted_terms_counts):
         yield ng, extracted_terms_measure[ng], extracted_terms_counts[ng]
         

@@ -14,9 +14,10 @@ model_file = '/home/alvas/test/food.arpa'
 textfile = '/home/alvas/test/food.txt'
 model = kenlm.LanguageModel(model_file)
 
+'''
 for line, terms in extract_line_by_line(textfile, model):
     print '\t'.join([line, str(terms), str(low_score_filter(terms, 4.0))])
-    
+'''
 for term, score, count in extract_for_whole_file(textfile, model):
     print '\t'.join([term, score, count])
 
