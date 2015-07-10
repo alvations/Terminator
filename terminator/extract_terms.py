@@ -9,18 +9,23 @@ from extract import extract_line_by_line, extract_for_whole_file
 from association_measures import lmpmi, lmpmi_freq
 from filter import low_score_filter
 
-    
+'''    
 model_file = '/home/alvas/test/food.arpa'
 textfile = '/home/alvas/test/food.txt'
 model = kenlm.LanguageModel(model_file)
 
-'''
 for line, terms in extract_line_by_line(textfile, model):
     print '\t'.join([line, str(terms), str(low_score_filter(terms, 4.0))])
-'''
+
 for term, score, count in extract_for_whole_file(textfile, model):
     print '\t'.join([term, score, count])
+'''
 
+def main(model_file, textfile):
+    model = kenlm.LanguageModel(model_file)
+    for term, score, count in extract_for_whole_file(textfile, model):
+        print '\t'.join([term, score, count])
+    
 if __name__ == '__main__':
     RED, NATIVE = '\033[01;31m', '\033[m'
     def err_msg(txt):
