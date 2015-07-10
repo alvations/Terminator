@@ -20,7 +20,8 @@ def simple_filter(list_of_ngrams):
             any(pos for word,pos in pos_tag(ng.lower().split()) 
                 if pos.startswith('NN')) and
             ')' not in ng and '(' not in ng and ',' not in ng and
-            'pinyin' not in ng]
+            'pinyin' not in ng and 
+            ng.split()[0] not in ['more', 'less']]
 
 def noun_final_filter(list_of_ngrams):
     return [ng for ng in list_of_ngrams if
@@ -46,3 +47,6 @@ def bio_to_chunk(bio_tagged_sent):
 
 def noun_phrase_filter(text):
     return bio_to_chunk(chktagger.tag(text.split()))
+
+def low_score_filter(list_of_ngrams_and_prob, min_score):
+    return [(ng,prob) for ng,prob in list_of_ngrams_and_prob if prob > min_score]

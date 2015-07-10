@@ -92,3 +92,25 @@ def salience(x, y, model):
     p_xnoty = marginal_prob(x, y, model, p_xy)
     p_ynotx = marginal_prob(y, x, model, p_xy)
     return math.log(p_xy*p_xy / (p_xnoty * p_ynotx)) * math.log(p_xy)
+
+def lmscore(_ngram, model, measure):
+    prev = ""
+    measure_sum = []
+    for ng in _ngram.split():        
+        if prev:
+            try:
+                this_measure = measure(prev, ng, model)
+            except:
+                this_measure = 0
+            measure_sum.append(this_measure)
+        else:
+            prev = ng
+        prev += " " + ng
+    return sum(measure_sum) / float(len(_ngram.split()))
+
+def lmpmi(_ngram, model, measure=pointwise_mutual_information):
+    return lmscore(_ngram, model, measure)
+
+def lmpmi_freq(_ngram, model, measure=pointwise_mutual_information):
+    return lmscore(_ngram, model, measure) * prob(_ngram, model)
+     

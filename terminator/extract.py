@@ -7,35 +7,18 @@ from collections import Counter
 import kenlm
 
 from association_measures import pointwise_mutual_information as pmi
-from association_measures import logprob
-from filter import noun_phrase_filter, simple_filter
+from association_measures import logprob, lmpmi, lmpmi_freq
+from filter import noun_phrase_filter, simple_filter, low_score_filter
     
-def lmscore(_ngram, model, measure=pmi):
-    prev = ""
-    measure_sum = []
-    for ng in _ngram.split():        
-        if prev:
-            try:
-                this_measure = measure(prev, ng, model)
-            except:
-                this_measure = 0
-            measure_sum.append(this_measure)
-        else:
-            prev = ng
-        prev += " " + ng
-    # return sum(measure_sum) / float(len(_ngram.split())) * logprob(_ngram, model)
-    return sum(measure_sum) / float(len(_ngram.split())) 
-    
-def lame(text, model, measure=pmi):
+def lame(text, model, measure=lmpmi):
     ranked_term_candidates = {}
     noun_phrases = noun_phrase_filter(text)
     for ng in simple_filter(noun_phrases):
-        score = lmscore(ng, model, measure)
+        score = measure(ng, model)
         if score != 0:
             ranked_term_candidates[ng] =  score
     return sorted(ranked_term_candidates.items(), key=operator.itemgetter(1), 
                   reverse=True)
-
     
 model_file = '/home/alvas/test/food.arpa'
 textfile = '/home/alvas/test/food.txt'
@@ -47,9 +30,12 @@ with io.open(textfile, 'r', encoding='utf8') as fin:
     for count, line in enumerate(fin):
         if line.strip():
             print count, line.strip()
-            x = lame(line.strip(), model, measure=pmi)
+            x = lame(line.strip(), model, measure=lmpmi)
+            y = lame(line.strip(), model, measure=lmpmi_freq)
+            fx = low_score_filter(x, 4.0)
+            fy = low_score_filter(y, 0.0001)
             extracted_terms.update(x)
-            print x, '\n'
+            print x, '\n', y, '\n', fx, '\n', fy, '\n'
 
 if __name__ == '__main__':
     RED, NATIVE = '\033[01;31m', '\033[m'
