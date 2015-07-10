@@ -24,7 +24,7 @@ for term, score, count in extract_for_whole_file(textfile, model):
 def main(model_file, textfile):
     model = kenlm.LanguageModel(model_file)
     for term, score, count in extract_for_whole_file(textfile, model):
-        print('\t'.join([term, score, count]))
+        print('\t'.join([term, str(score), str(count)]))
     
 if __name__ == '__main__':
     RED, NATIVE = '\033[01;31m', '\033[m'

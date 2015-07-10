@@ -13,8 +13,10 @@ def came(textfile, model, measure=None, noun_filter=senna_noun_phrase_filter):
         for line_count, line in enumerate(fin):
             if line_count == 0 or line_count % 50 == 0:
                 sys.stderr.write(str(line_count) + ' ')
+                sys.stderr.flush()
             if line_count != 0 and line_count % 500 == 0:
                 sys.stderr.write(' '.join(['took', str(time.time() - start), 'secs\n']))
+                sys.stderr.flush()
                 start = time.time()
             line = line.strip()
             if line:
@@ -29,8 +31,10 @@ def fame(textfile, model, measure=lmpmi, noun_filter=senna_noun_phrase_filter):
         for line_count, line in enumerate(fin):
             if line_count == 0 or line_count % 50 == 0:
                 sys.stderr.write(str(line_count) + ' ')
+                sys.stderr.flush()
             if line_count != 0 and line_count % 500 == 0:
                 sys.stderr.write(' '.join(['took', str(time.time() - start), 'secs\n']))
+                sys.stderr.flush()
                 start = time.time()
             noun_phrases = senna_noun_phrase_filter(line)
             for ng in simple_filter(noun_phrases):
