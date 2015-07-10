@@ -18,14 +18,20 @@ cd kenlm
 cd ..
 # Install KenLM python wrapper
 pip install https://github.com/kpu/kenlm/archive/master.zip
+# Install Senna 
+wget http://ronan.collobert.com/senna/senna-v3.0.tgz | tar zxvf
 # Install Terminator
 git clone https://github.com/alvations/Terminator.git
-```
 
-**Usage**
 
 ```
-cd Terminator
-kenlm/bin/lmplz -o 5 < text.txt >text.arpa
-python3 extract_terms.py text.arpa text.txt
+
+**Extract**
+
+```
+# Download test data (Food related sentences from Wikipedia)
+wget -O WIKI_food.txt https://db.tt/1PsHukOB 
+cut -f2 WIKI_food.txt > food.txt 
+~/kenlm/bin/lmplz -o 5 < food.txt > food.arpa
+python3 ~/Terminator/terminator/extract_terms.py food.arpa food.txt
 ```
