@@ -45,8 +45,11 @@ def bio_to_chunk(bio_tagged_sent):
                 current_chunk = []            
     return np_chunks
 
-def noun_phrase_filter(text):
-    return bio_to_chunk(chktagger.tag(text.split()))
+def senna_noun_phrase_filter(text):
+    try:
+        return bio_to_chunk(chktagger.tag(text.split()))
+    except IndexError:
+        return []
 
 def low_score_filter(list_of_ngrams_and_prob, min_score):
     return [(ng,prob) for ng,prob in list_of_ngrams_and_prob if prob > min_score]
