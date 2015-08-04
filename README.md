@@ -17,7 +17,7 @@ cd kenlm
 ./bjam -j4
 cd ..
 # Install KenLM python wrapper
-pip install https://github.com/kpu/kenlm/archive/master.zip
+pip3 install https://github.com/kpu/kenlm/archive/master.zip
 # Install Senna 
 wget http://ronan.collobert.com/senna/senna-v3.0.tgz | tar zxvf
 # Install Terminator
