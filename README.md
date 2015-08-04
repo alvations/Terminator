@@ -18,7 +18,7 @@ cd kenlm
 cd ..
 # Install KenLM python wrapper
 pip3 install https://github.com/kpu/kenlm/archive/master.zip
-# Install NLTK
+# Install Numpy and NLTK 
 pip3 install numpy
 pip3 install -U nltk
 # Install Senna 
