@@ -18,8 +18,11 @@ cd kenlm
 cd ..
 # Install KenLM python wrapper
 pip3 install https://github.com/kpu/kenlm/archive/master.zip
+# Install NLTK
+pip3 install -U nltk
 # Install Senna 
-wget http://ronan.collobert.com/senna/senna-v3.0.tgz | tar zxvf
+wget http://ronan.collobert.com/senna/senna-v3.0.tgz
+tar zxvf senna-v3.0.tgz
 # Install Terminator
 git clone https://github.com/alvations/Terminator.git
 
